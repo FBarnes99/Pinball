@@ -36,7 +36,7 @@ bool ModulePhysics::Start()
 	ground = world->CreateBody(&bd);
 
 	// big static circle as "ground" in the middle of the screen
-	int x = SCREEN_WIDTH / 2;
+	/*int x = SCREEN_WIDTH / 2;
 	int y = SCREEN_HEIGHT / 1.5f;
 	int diameter = SCREEN_WIDTH / 2;
 
@@ -52,8 +52,204 @@ bool ModulePhysics::Start()
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.restitution = 1.5f;
-	big_ball->CreateFixture(&fixture);
+	big_ball->CreateFixture(&fixture);*/
+	
+	int map1[84] = {
+	112, 558,
+	42, 511,
+	41, 523,
+	14, 523,
+	13, 408,
+	21, 396,
+	35, 390,
+	45, 387,
+	46, 349,
+	48, 341,
+	54, 335,
+	29, 270,
+	17, 213,
+	18, 157,
+	18, 137,
+	27, 104,
+	44, 72,
+	63, 55,
+	99, 31,
+	124, 19,
+	155, 14,
+	200, 15,
+	233, 26,
+	267, 40,
+	289, 57,
+	313, 81,
+	337, 124,
+	345, 158,
+	347, 196,
+	347, 248,
+	349, 303,
+	348, 355,
+	347, 402,
+	347, 431,
+	347, 477,
+	346, 517,
+	348, 561,
+	388, 559,
+	392, -4,
+	-6, -6,
+	-12, 559,
+	111, 566
+	};
+	ModulePhysics::CreateChain(0, 0,map1, 84);
 
+	int map2[70] = {
+	318, 555,
+	319, 166,
+	307, 120,
+	290, 94,
+	260, 71,
+	225, 54,
+	172, 46,
+	134, 47,
+	100, 62,
+	76, 82,
+	118, 61,
+	154, 57,
+	191, 58,
+	216, 66,
+	241, 81,
+	270, 106,
+	289, 131,
+	295, 145,
+	297, 164,
+	297, 189,
+	299, 218,
+	295, 244,
+	290, 271,
+	280, 295,
+	272, 312,
+	261, 333,
+	272, 348,
+	273, 387,
+	295, 393,
+	307, 416,
+	304, 520,
+	277, 520,
+	273, 512,
+	211, 556,
+	299, 555
+	};
+	ModulePhysics::CreateChain(0, 0, map2, 70);
+	
+	int map3[12] = {
+	109, 523,
+	42, 482,
+	41, 415,
+	49, 417,
+	48, 464,
+	114, 512
+	};
+	ModulePhysics::CreateChain(0, 0, map3, 12);
+	int map4[12] = {
+	218, 518,
+	278, 480,
+	282, 412,
+	273, 415,
+	269, 463,
+	213, 505
+	};
+	ModulePhysics::CreateChain(0, 0, map4, 12);
+	int map5[24] = {
+		114, 256,
+		93, 240,
+		87, 197,
+		87, 158,
+		97, 134,
+		99, 145,
+		95, 161,
+		94, 183,
+		107, 204,
+		128, 227,
+		131, 241,
+		125, 251
+	};
+	ModulePhysics::CreateChain(0, 0, map5, 24);
+	int map6[40] = {
+	210, 238,
+	218, 178,
+	219, 125,
+	221, 100,
+	242, 115,
+	257, 138,
+	269, 169,
+	269, 197,
+	269, 227,
+	261, 253,
+	248, 281,
+	240, 291,
+	231, 286,
+	248, 262,
+	254, 239,
+	260, 211,
+	258, 197,
+	229, 196,
+	231, 217,
+	219, 235
+	};
+	ModulePhysics::CreateChain(0, 0, map6, 40);
+
+	int map7[22] = {
+	78, 300,
+	91, 291,
+	70, 263,
+	60, 224,
+	55, 188,
+	58, 172,
+	49, 186,
+	47, 215,
+	52, 248,
+	61, 273,
+	68, 285
+	};
+	ModulePhysics::CreateChain(0, 0, map7, 22);
+	//over joint
+	int map8[8] = {
+	73, 420,
+	72, 454,
+	97, 471,
+	77, 430
+	};
+	ModulePhysics::CreateChain(0, 0, map8, 8);
+	
+	int map9[8] = {
+	222, 467,
+	247, 418,
+	248, 458,
+	232, 463
+	};
+	ModulePhysics::CreateChain(0, 0, map9, 8);
+	
+	//over volt
+	int map10[8] = {
+	132, 99,
+	141, 93,
+	140, 120,
+	135, 128
+	};
+	ModulePhysics::CreateChain(0, 0, map10, 8);
+	
+	int map11[8] = {
+	177, 88,
+	184, 88,
+	185, 112,
+	177, 112
+	};
+	ModulePhysics::CreateChain(0, 0, map11, 8);
+	//diglet
+	ModulePhysics::CreateBouncer(50, 355, 15);
+	ModulePhysics::CreateBouncer(270, 355, 15);
+	//voltorb
+	ModulePhysics::CreateBouncer(135, 159, 15);
+	ModulePhysics::CreateBouncer(183, 139, 15);
+	ModulePhysics::CreateBouncer(170, 199, 15);
 	return true;
 }
 
@@ -100,6 +296,30 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	return pbody;
 }
 
+PhysBody* ModulePhysics::CreateBouncer(int x, int y, int radius)
+{
+	b2BodyDef body;
+	body.type = b2_staticBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+	b2Body* b = world->CreateBody(&body);
+
+	b2CircleShape shape;
+	shape.m_radius = PIXEL_TO_METERS(radius);
+	b2FixtureDef fixture;
+	fixture.shape = &shape;
+	fixture.density = 1.0f;
+	fixture.restitution = 1.5f;
+
+	b->CreateFixture(&fixture);
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = pbody->height = radius;
+
+	return pbody;
+}
 PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 {
 	b2BodyDef body;
@@ -155,7 +375,7 @@ PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int heig
 PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	body.type = b2_staticBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
