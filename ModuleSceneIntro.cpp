@@ -103,7 +103,7 @@ bool ModuleSceneIntro::Start()
 	261, 333,
 	272, 348,
 	273, 387,
-	295, 393,
+	300, 393,
 	307, 416,
 	304, 520,
 	277, 520,
@@ -119,18 +119,21 @@ bool ModuleSceneIntro::Start()
 	41, 415,
 	49, 417,
 	48, 464,
-	114, 512
+	114, 506
 	};
 	App->physics->CreateChain(0, 0, map3, 12, 0);
+	
 	int map4[12] = {
 	218, 518,
 	278, 480,
 	282, 412,
 	273, 415,
-	269, 463,
+	269, 470,
 	213, 505
 	};
+	
 	App->physics->CreateChain(0, 0, map4, 12, 0);
+	
 	int map5[24] = {
 		114, 256,
 		93, 240,
@@ -145,6 +148,7 @@ bool ModuleSceneIntro::Start()
 		131, 241,
 		125, 251
 	};
+
 	App->physics->CreateChain(0, 0, map5, 24, 0);
 	int map6[40] = {
 	210, 238,
@@ -184,14 +188,16 @@ bool ModuleSceneIntro::Start()
 	68, 285
 	};
 	App->physics->CreateChain(0, 0, map7, 22, 0);
+	
+	
 	//over joint
 	int map8[8] = {
 	73, 420,
 	72, 454,
-	97, 471,
+	97, 469,
 	77, 430
 	};
-	App->physics->CreateChain(0, 0, map8, 8, 0);
+	App->physics->CreateChain(0, 0, map8, 8, 1.5f);
 	
 	int map9[8] = {
 	222, 467,
@@ -199,7 +205,7 @@ bool ModuleSceneIntro::Start()
 	248, 458,
 	232, 463
 	};
-	App->physics->CreateChain(0, 0, map9, 8, 0);
+	App->physics->CreateChain(0, 0, map9, 8, 1.5f);
 	
 	//over volt
 	int map10[8] = {
@@ -218,12 +224,16 @@ bool ModuleSceneIntro::Start()
 	};
 	App->physics->CreateChain(0, 0, map11, 8, 0);
 	//diglet
-	App->physics->CreateBouncer(50, 355, 15);
-	App->physics->CreateBouncer(270, 355, 15);
+	App->physics->CreateBouncer(50, 355, 15,1.4f);
+	App->physics->CreateBouncer(270, 355, 15, 1.4f);
 	//voltorb
-	App->physics->CreateBouncer(135, 159, 15);
-	App->physics->CreateBouncer(183, 139, 15);
-	App->physics->CreateBouncer(170, 199, 15);
+	App->physics->CreateBouncer(135, 159, 15, 1.4f);
+	App->physics->CreateBouncer(183, 139, 15, 1.4f);
+	App->physics->CreateBouncer(170, 199, 15, 1.4f);
+
+	App->physics->CreateBouncer(27,520, 15, 3.8f);
+	App->physics->CreateBouncer(290, 518, 15, 3.8f);
+
 	return ret;
 }
 
@@ -244,10 +254,7 @@ update_status ModuleSceneIntro::Update()
 		circles.getLast()->data->listener = this;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50, b2_dynamicBody));
-	}
+
 
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{

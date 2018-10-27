@@ -83,7 +83,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, b2BodyType move)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateBouncer(int x, int y, int radius)
+PhysBody* ModulePhysics::CreateBouncer(int x, int y, int radius, int rest)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -96,7 +96,7 @@ PhysBody* ModulePhysics::CreateBouncer(int x, int y, int radius)
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
-	fixture.restitution = 1.5f;
+	fixture.restitution = rest;
 
 	b->CreateFixture(&fixture);
 
@@ -107,7 +107,7 @@ PhysBody* ModulePhysics::CreateBouncer(int x, int y, int radius)
 
 	return pbody;
 }
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, b2BodyType move)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, b2BodyType move, float rest)
 {
 	b2BodyDef body;
 	body.type = move;
@@ -120,7 +120,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, b2
 	b2FixtureDef fixture;
 	fixture.shape = &box;
 	fixture.density = 1.0f;
-
+	fixture.restitution = rest;
 	b->CreateFixture(&fixture);
 
 	PhysBody* pbody = new PhysBody();

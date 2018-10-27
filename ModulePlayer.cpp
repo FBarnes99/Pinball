@@ -34,6 +34,9 @@ bool ModulePlayer::Start()
 		setRightFlipper();
 		background_created = true;
 	//}
+
+		
+
 	score = 0;
 	return true;
 }
@@ -76,7 +79,21 @@ update_status ModulePlayer::Update()
 	}
 
 	
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		
+		pusherjoint->EnableMotor(true);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	{
+		
+		pusherjoint->EnableMotor(false);
+	}
 
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		setBall(PLAYER_POS_X, PLAYER_POS_Y);
+	}
 	//Flippers Draw------
 
 	R_Flipper->GetPosition(position.x, position.y);
@@ -101,8 +118,8 @@ void ModulePlayer::OnCollision(PhysBody * body_A, PhysBody * body_B)
 
 void ModulePlayer::setPusher() {
 
-	pusher = App->physics->CreateRectangle(455, 416, 18, 68, b2_dynamicBody);
-	pusher_pivot = App->physics->CreateRectangle(457, 502, 18, 20, b2_staticBody);
+	pusher = App->physics->CreateRectangle(PLAYER_POS_X, PLAYER_POS_Y + 20, 30, 40, b2_dynamicBody,0);
+	pusher_pivot = App->physics->CreateRectangle(PLAYER_POS_X, PLAYER_POS_Y + 50, 18, 20, b2_staticBody,0);
 
 
 	b2PrismaticJointDef prismaticJointDef;
@@ -120,7 +137,7 @@ void ModulePlayer::setPusher() {
 	prismaticJointDef.lowerTranslation = 0;
 	prismaticJointDef.upperTranslation = PIXEL_TO_METERS(50);
 	prismaticJointDef.enableMotor = false;
-	prismaticJointDef.maxMotorForce = 100;
+	prismaticJointDef.maxMotorForce = 700;
 	prismaticJointDef.motorSpeed = 5000;
 
 	pusherjoint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&prismaticJointDef);
@@ -128,8 +145,8 @@ void ModulePlayer::setPusher() {
 
 void ModulePlayer::setRightFlipper() {
 
-	R_Flipper = App->physics->CreateRectangle(310, 752, 80, 18,b2_dynamicBody);
-	R_Flipper_pivot = App->physics->CreateCircle(310, 752, 9, b2_staticBody);
+	R_Flipper = App->physics->CreateRectangle(210, 513, 41, 10,b2_dynamicBody,1.2f);
+	R_Flipper_pivot = App->physics->CreateCircle(210, 513, 7, b2_staticBody);
 
 	b2RevoluteJointDef revoluteJointDef;
 
@@ -138,8 +155,8 @@ void ModulePlayer::setRightFlipper() {
 
 	R_Flipper->body->SetGravityScale(10.0f);
 
-
-	revoluteJointDef.localAnchorA.Set(PIXEL_TO_METERS(30), 0);
+	
+	revoluteJointDef.localAnchorA.Set(PIXEL_TO_METERS(15), 0);
 	revoluteJointDef.localAnchorB.Set(0, 0);
 	revoluteJointDef.collideConnected = false;
 
@@ -155,8 +172,8 @@ void ModulePlayer::setRightFlipper() {
 }
 void ModulePlayer::setLeftFlipper() {
 
-	L_Flipper = App->physics->CreateRectangle(157, 752, 80, 18, b2_staticBody);//210 741
-	L_Flipper_pivot = App->physics->CreateCircle(157, 752, 9, b2_staticBody);
+	L_Flipper = App->physics->CreateRectangle(160, 480, 37, 10, b2_dynamicBody,1.2f);//210 741
+	L_Flipper_pivot = App->physics->CreateCircle(113, 513, 7, b2_staticBody);
 
 	b2RevoluteJointDef revoluteJointDef;
 
@@ -165,7 +182,7 @@ void ModulePlayer::setLeftFlipper() {
 	L_Flipper->body->SetGravityScale(10.0f);
 
 
-	revoluteJointDef.localAnchorA.Set(PIXEL_TO_METERS(-30), 0);
+	revoluteJointDef.localAnchorA.Set(PIXEL_TO_METERS(-18), 0);
 	revoluteJointDef.localAnchorB.Set(0, 0);
 	revoluteJointDef.collideConnected = false;
 
