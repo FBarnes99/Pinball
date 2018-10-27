@@ -117,22 +117,22 @@ bool ModuleSceneIntro::Start()
 	App->physics->CreateChain(0, 0, map2, 70, 0);
 	
 	int map3[12] = {
-	109, 523,
+	95, 523,
 	42, 482,
 	41, 415,
 	49, 417,
 	48, 464,
-	114, 506
+	99, 503
 	};
 	App->physics->CreateChain(0, 0, map3, 12, 0);
 	
 	int map4[12] = {
-	218, 518,
+	224, 518,
 	278, 480,
 	282, 412,
 	273, 415,
 	269, 470,
-	213, 505
+	220, 505
 	};
 	
 	App->physics->CreateChain(0, 0, map4, 12, 0);
