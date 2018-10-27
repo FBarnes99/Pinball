@@ -227,8 +227,8 @@ bool ModuleSceneIntro::Start()
 	};
 	App->physics->CreateChain(0, 0, map11, 8, 0);
 	//diglet
-	App->physics->CreateBouncer(50, 355, 15,1.4f);
-	App->physics->CreateBouncer(270, 355, 15, 1.4f);
+	App->physics->CreateBouncer(60, 365, 15,1.4f);
+	App->physics->CreateBouncer(268, 365, 15, 1.4f);
 	//voltorb
 	App->physics->CreateBouncer(135, 159, 15, 1.4f);
 	App->physics->CreateBouncer(183, 139, 15, 1.4f);

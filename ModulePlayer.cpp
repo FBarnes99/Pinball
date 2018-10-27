@@ -145,7 +145,7 @@ void ModulePlayer::setPusher() {
 
 void ModulePlayer::setRightFlipper() {
 
-	R_Flipper = App->physics->CreateRectangle(210, 513, 41, 10,b2_dynamicBody,1.2f);
+	R_Flipper = App->physics->CreateRectangle(210, 513, 40, 10,b2_dynamicBody,1.2f);
 	R_Flipper_pivot = App->physics->CreateCircle(210, 513, 7, b2_staticBody);
 
 	b2RevoluteJointDef revoluteJointDef;
@@ -172,7 +172,7 @@ void ModulePlayer::setRightFlipper() {
 }
 void ModulePlayer::setLeftFlipper() {
 
-	L_Flipper = App->physics->CreateRectangle(160, 480, 37, 10, b2_dynamicBody,1.2f);//210 741
+	L_Flipper = App->physics->CreateRectangle(160, 480, 40, 10, b2_dynamicBody,1.2f);//210 741
 	L_Flipper_pivot = App->physics->CreateCircle(113, 513, 7, b2_staticBody);
 
 	b2RevoluteJointDef revoluteJointDef;
