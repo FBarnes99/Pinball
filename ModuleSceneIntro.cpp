@@ -72,7 +72,7 @@ bool ModuleSceneIntro::Start()
 	-12, 559,
 	111, 566
 	};
-	App->physics->CreateChain(0, 0,map1, 84);
+	App->physics->CreateChain(0, 0,map1, 84, 0);
 
 	int map2[70] = {
 	318, 555,
@@ -111,7 +111,7 @@ bool ModuleSceneIntro::Start()
 	211, 556,
 	299, 555
 	};
-	App->physics->CreateChain(0, 0, map2, 70);
+	App->physics->CreateChain(0, 0, map2, 70, 0);
 	
 	int map3[12] = {
 	109, 523,
@@ -121,7 +121,7 @@ bool ModuleSceneIntro::Start()
 	48, 464,
 	114, 512
 	};
-	App->physics->CreateChain(0, 0, map3, 12);
+	App->physics->CreateChain(0, 0, map3, 12, 0);
 	int map4[12] = {
 	218, 518,
 	278, 480,
@@ -130,7 +130,7 @@ bool ModuleSceneIntro::Start()
 	269, 463,
 	213, 505
 	};
-	App->physics->CreateChain(0, 0, map4, 12);
+	App->physics->CreateChain(0, 0, map4, 12, 0);
 	int map5[24] = {
 		114, 256,
 		93, 240,
@@ -145,7 +145,7 @@ bool ModuleSceneIntro::Start()
 		131, 241,
 		125, 251
 	};
-	App->physics->CreateChain(0, 0, map5, 24);
+	App->physics->CreateChain(0, 0, map5, 24, 0);
 	int map6[40] = {
 	210, 238,
 	218, 178,
@@ -168,7 +168,7 @@ bool ModuleSceneIntro::Start()
 	231, 217,
 	219, 235
 	};
-	App->physics->CreateChain(0, 0, map6, 40);
+	App->physics->CreateChain(0, 0, map6, 40, 0);
 
 	int map7[22] = {
 	78, 300,
@@ -183,7 +183,7 @@ bool ModuleSceneIntro::Start()
 	61, 273,
 	68, 285
 	};
-	App->physics->CreateChain(0, 0, map7, 22);
+	App->physics->CreateChain(0, 0, map7, 22, 0);
 	//over joint
 	int map8[8] = {
 	73, 420,
@@ -191,7 +191,7 @@ bool ModuleSceneIntro::Start()
 	97, 471,
 	77, 430
 	};
-	App->physics->CreateChain(0, 0, map8, 8);
+	App->physics->CreateChain(0, 0, map8, 8, 0);
 	
 	int map9[8] = {
 	222, 467,
@@ -199,7 +199,7 @@ bool ModuleSceneIntro::Start()
 	248, 458,
 	232, 463
 	};
-	App->physics->CreateChain(0, 0, map9, 8);
+	App->physics->CreateChain(0, 0, map9, 8, 0);
 	
 	//over volt
 	int map10[8] = {
@@ -208,7 +208,7 @@ bool ModuleSceneIntro::Start()
 	140, 120,
 	135, 128
 	};
-	App->physics->CreateChain(0, 0, map10, 8);
+	App->physics->CreateChain(0, 0, map10, 8, 0);
 	
 	int map11[8] = {
 	177, 88,
@@ -216,7 +216,7 @@ bool ModuleSceneIntro::Start()
 	185, 112,
 	177, 112
 	};
-	App->physics->CreateChain(0, 0, map11, 8);
+	App->physics->CreateChain(0, 0, map11, 8, 0);
 	//diglet
 	App->physics->CreateBouncer(50, 355, 15);
 	App->physics->CreateBouncer(270, 355, 15);
@@ -240,13 +240,13 @@ update_status ModuleSceneIntro::Update()
 {
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 10));
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 10, b2_dynamicBody));
 		circles.getLast()->data->listener = this;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
+		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50, b2_dynamicBody));
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
@@ -287,7 +287,7 @@ update_status ModuleSceneIntro::Update()
 			30, 62
 		};
 
-		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
+		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64,0));
 	}
 
 	// Prepare for raycast ------------------------------------------------------
