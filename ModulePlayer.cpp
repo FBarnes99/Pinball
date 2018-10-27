@@ -22,9 +22,9 @@ bool ModulePlayer::Start()
 	LOG("Loading ball");
 	lives = 3;
 
-	ball_tex = App->textures->Load("Assets/textures/ball.png");
-	left_flipper = App->textures->Load("Assets/textures/left_flipper.png");
-	right_flipper = App->textures->Load("Assets/textures/right_flipper.png");
+	ball_tex = App->textures->Load("pinball/ball.png");
+	left_flipper = App->textures->Load("pinball/Left_flipper.png");
+	right_flipper = App->textures->Load("pinball/Right_flipper.png");
 	pusher_ball = App->textures->Load("Assets/textures/pusher_ball.png");
 	
 	//if (!background_created) {

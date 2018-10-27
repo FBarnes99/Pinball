@@ -12,6 +12,8 @@ public:
 	ModuleSceneIntro(Application* app, bool start_enabled = true);
 	~ModuleSceneIntro();
 
+	bool background_created = false;
+
 	bool Start();
 	update_status Update();
 	bool CleanUp();
@@ -22,6 +24,7 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
 
+	SDL_Texture* map_tex;
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* rick;

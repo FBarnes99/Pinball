@@ -23,10 +23,13 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	circle = App->textures->Load("pinball/wheel.png"); 
+	map_tex = App->textures->Load("pinball/background.png");
+	/*circle = App->textures->Load("pinball/wheel.png"); 
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
-	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");*/
+	if (!background_created) 
+		background_created = true;
 
 	int map1[84] = {
 	112, 558,
@@ -241,22 +244,30 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
-
+	App->textures->Unload(map_tex);
 	return true;
 }
 
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (map_tex != NULL)
+	{
+		App->renderer->Blit(map_tex, 0, 0, NULL, 1.0f);
+	}
+	
+
+
+	
+	/*if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 10, b2_dynamicBody));
 		circles.getLast()->data->listener = this;
-	}
+	}*/
 
 
 
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	/*if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
 		// Pivot 0, 0
 		int rick_head[64] = {
@@ -295,7 +306,7 @@ update_status ModuleSceneIntro::Update()
 		};
 
 		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64,0));
-	}
+	}*/
 
 	// Prepare for raycast ------------------------------------------------------
 	
