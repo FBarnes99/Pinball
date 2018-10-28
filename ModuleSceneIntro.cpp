@@ -8,12 +8,16 @@
 #include "ModulePhysics.h"
 #include "ModuleFonts.h"
 #include "ModulePlayer.h"
+#include "Animation.h"
 
 
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	circle = box = rick = NULL;
+	
+	anim_voltorb.PushBack({ 0,0, 32, 32 });
+
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -28,6 +32,10 @@ bool ModuleSceneIntro::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	map_tex = App->textures->Load("pinball/background.png");
+	bellsprout = App->textures->Load("pinball/Bellsprout.png");
+	L_Dugtrio = App->textures->Load("pinball/Left_dugtrio.png");
+	R_Dugtrio = App->textures->Load("pinball/Right_dugtrio.png");
+	voltorb = App->textures->Load("pinball/Voltorb.png");
 	score = App->fonts->Load("pinball/score_f.png", "0123456789", 1);
 	hit_fx = App->audio->LoadFx("pinball/roblox.wav");
 
@@ -36,6 +44,44 @@ bool ModuleSceneIntro::Start()
 	if (!background_created) 
 		background_created = true;
 
+	anim_bellsprout2 = &anim_bellsprout;
+	anim_L_Dugtrio2 = &anim_L_Dugtrio;
+	anim_R_Dugtrio2 = &anim_R_Dugtrio;
+	anim_voltorb2 = &anim_voltorb;
+	anim_voltorb3 = &anim_voltorb;
+	anim_voltorb4 = &anim_voltorb;
+
+
+
+	anim_voltorb.PushBack({ 0,0, 32, 32 });
+	anim_voltorb.PushBack({ 36,0, 32, 32 });
+	anim_voltorb.speed = 0.1f;
+	anim_voltorb.loop = true;
+
+	
+
+
+	anim_bellsprout.PushBack({ 0, 0, 54, 74 });
+	anim_bellsprout.PushBack({ 58, 0, 53, 74 });
+	anim_bellsprout.PushBack({ 115, 0, 56, 74 });
+	anim_bellsprout.PushBack({ 175, 0, 56, 74 });
+	anim_bellsprout.speed = 0.1f;
+	anim_bellsprout.loop = true;
+
+	anim_L_Dugtrio.PushBack({ 0,0,46 ,60 });
+	anim_L_Dugtrio.PushBack({ 50,0,46 ,60 });
+	anim_L_Dugtrio.PushBack({ 100,0, 46,60 });
+	anim_L_Dugtrio.PushBack({ 150,0, 46, 60 });
+	anim_L_Dugtrio.speed = 0.1f;
+	anim_L_Dugtrio.loop = true;
+
+	anim_R_Dugtrio.PushBack({ 0 , 0,46 ,60 });
+	anim_R_Dugtrio.PushBack({ 50, 0,46 ,60 });
+	anim_R_Dugtrio.PushBack({ 100 , 0,46 ,60 });
+	anim_R_Dugtrio.PushBack({ 150, 0,46 ,60 });
+	anim_R_Dugtrio.speed = 0.1f;
+	anim_R_Dugtrio.loop = true;
+	
 	int map1[84] = {
 	112, 558,
 	42, 511,
@@ -257,6 +303,10 @@ bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
 	App->textures->Unload(map_tex);
+	App->textures->Unload(voltorb);
+	App->textures->Unload(bellsprout);
+	App->textures->Unload(L_Dugtrio);
+	App->textures->Unload(R_Dugtrio);
 	return true;
 }
 
@@ -271,6 +321,13 @@ update_status ModuleSceneIntro::Update()
 		
 	}
 	
+	App->renderer->Blit(voltorb, 116, 156, &anim_voltorb2->GetCurrentFrame());
+	App->renderer->Blit(voltorb, 166, 136, &anim_voltorb3->GetCurrentFrame());
+	App->renderer->Blit(voltorb, 156, 192, &anim_voltorb4->GetCurrentFrame());
+	App->renderer->Blit(bellsprout, 208, 164, &anim_bellsprout2->GetCurrentFrame());
+	App->renderer->Blit(L_Dugtrio, 0, 333, &anim_L_Dugtrio2->GetCurrentFrame());
+	App->renderer->Blit(R_Dugtrio, 274, 333, &anim_R_Dugtrio2->GetCurrentFrame());
+
 	sprintf_s(player_score, 10, "%d", App->player->score);
 	App->fonts->BlitText(120, 353, score, player_score, 0.7f);
 

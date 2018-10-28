@@ -3,6 +3,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Globals.h"
+#include "Animation.h"
 
 class PhysBody;
 
@@ -38,7 +39,24 @@ public:
 
 	char player_score[10];
 
+	Animation anim_voltorb;
+	Animation anim_bellsprout;
+	Animation anim_L_Dugtrio;
+	Animation anim_R_Dugtrio;
+
+	Animation* anim_voltorb2;
+	Animation* anim_voltorb3;
+	Animation* anim_voltorb4;
+	Animation* anim_bellsprout2;
+	Animation* anim_L_Dugtrio2;
+	Animation* anim_R_Dugtrio2;
+	
 	SDL_Texture* map_tex;
+	SDL_Texture* voltorb;
+	SDL_Texture* L_Dugtrio;
+	SDL_Texture* R_Dugtrio;
+	SDL_Texture* bellsprout;
+	
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* rick;
