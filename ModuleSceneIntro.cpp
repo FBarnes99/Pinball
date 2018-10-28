@@ -256,11 +256,13 @@ bool ModuleSceneIntro::Start()
 	return ret;
 }
 
-// Load assets
+// Unload assets
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
 	App->textures->Unload(map_tex);
+	
+	App->fonts->Unload(score);
 	return true;
 }
 

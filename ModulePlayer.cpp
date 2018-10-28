@@ -47,7 +47,7 @@ bool ModulePlayer::CleanUp()
 	App->textures->Unload(ball_tex);
 	App->textures->Unload(left_flipper);
 	App->textures->Unload(right_flipper);
-	App->textures->Unload(pusher_ball);
+	
 
 
 
@@ -61,30 +61,30 @@ update_status ModulePlayer::Update()
 {
 
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
 	{
 		R_Flipper_joint->EnableMotor(true);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
 	{
 		R_Flipper_joint->EnableMotor(false);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		L_Flipper_joint->EnableMotor(true);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
 		L_Flipper_joint->EnableMotor(false);
 	}
 
 	
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
 	{
 		
 		pusherjoint->EnableMotor(true);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
 		
 		pusherjoint->EnableMotor(false);
@@ -118,7 +118,7 @@ update_status ModulePlayer::Update()
 
 	}
 
-	if (position.y > SCREEN_HEIGHT  ) {
+	if (position.y > SCREEN_HEIGHT + 30 ) {
 		
 		App->physics->world->DestroyBody(player_ball->body);
 		
