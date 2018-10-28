@@ -55,7 +55,7 @@ bool ModuleSceneIntro::Start()
 
 	anim_voltorb.PushBack({ 0,0, 32, 32 });
 	anim_voltorb.PushBack({ 36,0, 32, 32 });
-	anim_voltorb.speed = 0.1f;
+	anim_voltorb.speed = 0.03f;
 	anim_voltorb.loop = true;
 
 	
@@ -307,15 +307,13 @@ bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
 	App->textures->Unload(map_tex);
-<<<<<<< HEAD
+
 	App->textures->Unload(voltorb);
 	App->textures->Unload(bellsprout);
 	App->textures->Unload(L_Dugtrio);
 	App->textures->Unload(R_Dugtrio);
-=======
-	
 	App->fonts->Unload(score);
->>>>>>> aaa6cbfb2aa45da579cc37e367607651120713fe
+
 	return true;
 }
 
@@ -332,7 +330,7 @@ update_status ModuleSceneIntro::Update()
 	
 	App->renderer->Blit(voltorb, 116, 156, &anim_voltorb2->GetCurrentFrame());
 	App->renderer->Blit(voltorb, 166, 136, &anim_voltorb3->GetCurrentFrame());
-	App->renderer->Blit(voltorb, 156, 192, &anim_voltorb4->GetCurrentFrame());
+	App->renderer->Blit(voltorb, 154, 192, &anim_voltorb4->GetCurrentFrame());
 	App->renderer->Blit(bellsprout, 208, 164, &anim_bellsprout2->GetCurrentFrame());
 	App->renderer->Blit(L_Dugtrio, 0, 333, &anim_L_Dugtrio2->GetCurrentFrame());
 	App->renderer->Blit(R_Dugtrio, 274, 333, &anim_R_Dugtrio2->GetCurrentFrame());
