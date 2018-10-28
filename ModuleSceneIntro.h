@@ -34,9 +34,12 @@ public:
 	struct Bouncerst Volt1;
 	struct Bouncerst Volt2;
 	struct Bouncerst Volt3;
-
+	
+	struct Bouncerst Digg1;
+	struct Bouncerst Digg2;
 
 	char player_score[10];
+	char max_score[10];
 
 	SDL_Texture* map_tex;
 	SDL_Texture* circle;
