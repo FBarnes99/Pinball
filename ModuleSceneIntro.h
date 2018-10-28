@@ -6,6 +6,13 @@
 
 class PhysBody;
 
+struct Bouncerst {
+
+	PhysBody* body = nullptr;
+	bool hitted = false;
+};
+
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -18,11 +25,16 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
-
+	bool OnCollisionBouncer(PhysBody* bodyA, Bouncerst bodyB);
 public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
+	
+	struct Bouncerst Volt1;
+	struct Bouncerst Volt2;
+	struct Bouncerst Volt3;
+
 
 	char player_score[10];
 

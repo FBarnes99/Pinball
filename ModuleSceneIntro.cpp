@@ -10,6 +10,7 @@
 #include "ModulePlayer.h"
 
 
+
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	circle = box = rick = NULL;
@@ -235,9 +236,16 @@ bool ModuleSceneIntro::Start()
 	App->physics->CreateBouncer(60, 365, 15,1.4f);
 	App->physics->CreateBouncer(268, 365, 15, 1.4f);
 	//voltorb
-	App->physics->CreateBouncer(135, 159, 15, 1.4f);
-	App->physics->CreateBouncer(183, 139, 15, 1.4f);
-	App->physics->CreateBouncer(170, 199, 15, 1.4f);
+	
+	//Volt1 = { App->physics->CreateBouncer(135, 159, 15, 1.4f),false};
+	Volt1.body= App->physics->CreateBouncer(135, 159, 15, 1.4f);
+	Volt1.hitted = false;
+
+	Volt2.body = App->physics->CreateBouncer(183, 139, 15, 1.4f);
+	Volt2.hitted = false;
+
+	Volt3.body = App->physics->CreateBouncer(170, 199, 15, 1.4f);
+	Volt3.hitted = false;
 
 	App->physics->CreateBouncer(27,520, 15, 3.8f);
 	App->physics->CreateBouncer(290, 518, 15, 3.8f);
@@ -267,8 +275,16 @@ update_status ModuleSceneIntro::Update()
 	}
 	
 	sprintf_s(player_score, 10, "%d", App->player->score);
-	App->fonts->BlitText(127, 353, score, player_score, 0.7f);
+	App->fonts->BlitText(125, 353, score, player_score, 0.65f);
 
+	if (OnCollisionBouncer(App->player->player_ball, Volt1) == true){
+		Volt1.hitted == true;
+	}
+
+	if (Volt1.hitted == true) {
+		App->player->score *= 2;
+		Volt1.hitted == false;
+	}
 	// Prepare for raycast ------------------------------------------------------
 	
 	iPoint mouse;
@@ -312,4 +328,10 @@ update_status ModuleSceneIntro::Update()
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	App->audio->PlayFx(bonus_fx);
+}
+
+bool ModuleSceneIntro::OnCollisionBouncer(PhysBody* bodyA, Bouncerst bodyB)
+{
+	
+	return true;
 }
