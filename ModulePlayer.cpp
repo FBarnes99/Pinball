@@ -94,11 +94,19 @@ update_status ModulePlayer::Update()
 	//Flippers Draw------
 
 	R_Flipper->GetPosition(position.x, position.y);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 679cfe0b0e33d9bd8b517f4cee2d4b7381bc9e20
 	App->renderer->Blit(right_flipper, position.x, position.y, NULL, 1.0f, R_Flipper->GetRotation());
 	
 	L_Flipper->GetPosition(position.x, position.y);
 	App->renderer->Blit(left_flipper, position.x, position.y, NULL, 1.0f, L_Flipper->GetRotation());
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 679cfe0b0e33d9bd8b517f4cee2d4b7381bc9e20
 
 	//Ball Draw--------------------
 	player_ball->GetPosition(position.x, position.y);
