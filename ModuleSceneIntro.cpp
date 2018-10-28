@@ -249,10 +249,6 @@ bool ModuleSceneIntro::Start()
 	App->physics->CreateBouncer(27,520, 15, 3.8f);
 	App->physics->CreateBouncer(290, 518, 15, 3.8f);
 
-	
-	
-	
-
 	return ret;
 }
 
@@ -276,18 +272,8 @@ update_status ModuleSceneIntro::Update()
 	}
 	
 	sprintf_s(player_score, 10, "%d", App->player->score);
-	App->fonts->BlitText(123, 353, score, player_score, 0.65f);
+	App->fonts->BlitText(120, 353, score, player_score, 0.7f);
 
-	if (OnCollisionBouncer(App->player->player_ball, Volt1) == true){
-		Volt1.hitted == true;
-	}
-
-	if (Volt1.hitted == true) {
-		App->player->score *= 2;
-		Volt1.hitted == false;
-	}
-
-	OnCollision(App->player->player_ball, Volt1.body);
 	// Prepare for raycast ------------------------------------------------------
 	
 	iPoint mouse;
@@ -330,12 +316,7 @@ update_status ModuleSceneIntro::Update()
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	App->audio->PlayFx(hit_fx);
-	//App->audio->PlayFx(App->scene_intro->hit_fx);
+	//App->audio->PlayFx(hit_fx);
+
 }
 
-bool ModuleSceneIntro::OnCollisionBouncer(PhysBody* bodyA, Bouncerst bodyB)
-{
-	
-	return true;
-}

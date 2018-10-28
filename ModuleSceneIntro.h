@@ -25,7 +25,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
-	bool OnCollisionBouncer(PhysBody* bodyA, Bouncerst bodyB);
+	
 public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
