@@ -10,6 +10,7 @@
 #include "ModulePlayer.h"
 
 
+
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	circle = box = rick = NULL;
@@ -28,11 +29,10 @@ bool ModuleSceneIntro::Start()
 
 	map_tex = App->textures->Load("pinball/background.png");
 	score = App->fonts->Load("pinball/score_f.png", "0123456789", 1);
+	hit_fx = App->audio->LoadFx("pinball/bounce.wav");
 
-	/*circle = App->textures->Load("pinball/wheel.png"); 
-	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
-	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");*/
+	App->audio->PlayMusic("pinball/145 Victory is Right Before Your Eyes!.ogg", 2);
+
 	if (!background_created) 
 		background_created = true;
 
@@ -235,16 +235,19 @@ bool ModuleSceneIntro::Start()
 	App->physics->CreateBouncer(60, 365, 15,1.4f);
 	App->physics->CreateBouncer(268, 365, 15, 1.4f);
 	//voltorb
-	App->physics->CreateBouncer(135, 159, 15, 1.4f);
-	App->physics->CreateBouncer(183, 139, 15, 1.4f);
-	App->physics->CreateBouncer(170, 199, 15, 1.4f);
+	
+	
+	Volt1.body= App->physics->CreateBouncer(132, 172, 15, 1.4f);
+	Volt1.hitted = false;
+
+	Volt2.body = App->physics->CreateBouncer(182, 151, 15, 1.4f);
+	Volt2.hitted = false;
+
+	Volt3.body = App->physics->CreateBouncer(170, 209, 15, 1.4f);
+	Volt3.hitted = false;
 
 	App->physics->CreateBouncer(27,520, 15, 3.8f);
 	App->physics->CreateBouncer(290, 518, 15, 3.8f);
-
-	
-	
-	
 
 	return ret;
 }
@@ -260,6 +263,8 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+	
+	
 	if (map_tex != NULL)
 	{
 		App->renderer->Blit(map_tex, 0, 0, NULL, 1.0f);
@@ -267,7 +272,7 @@ update_status ModuleSceneIntro::Update()
 	}
 	
 	sprintf_s(player_score, 10, "%d", App->player->score);
-	App->fonts->BlitText(127, 353, score, player_score, 0.7f);
+	App->fonts->BlitText(120, 353, score, player_score, 0.7f);
 
 	// Prepare for raycast ------------------------------------------------------
 	
@@ -311,5 +316,7 @@ update_status ModuleSceneIntro::Update()
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	App->audio->PlayFx(bonus_fx);
+	//App->audio->PlayFx(hit_fx);
+
 }
+
