@@ -24,9 +24,12 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
 
+	char player_score[10];
+
 	SDL_Texture* map_tex;
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* rick;
 	uint bonus_fx;
+	int score = -1;
 };

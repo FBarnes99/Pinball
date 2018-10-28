@@ -1,4 +1,4 @@
-#include "Globals.h"
+
 #include "Application.h"
 #include "ModulePlayer.h"
 #include "ModulePhysics.h"
@@ -7,6 +7,7 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
+
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -97,10 +98,10 @@ update_status ModulePlayer::Update()
 	//Flippers Draw------
 
 	R_Flipper->GetPosition(position.x, position.y);
-	App->renderer->Blit(right_flipper, position.x, position.y, NULL, 1.0f, 1.0f, R_Flipper->GetRotation());
+	App->renderer->Blit(right_flipper, position.x, position.y, NULL, 0, 0, R_Flipper->GetRotation());
 
 	L_Flipper->GetPosition(position.x, position.y);
-	App->renderer->Blit(left_flipper, position.x, position.y, NULL, 1.0f, 1.0f, L_Flipper->GetRotation());
+	App->renderer->Blit(left_flipper, position.x, position.y, NULL, 0, 0, L_Flipper->GetRotation());
 
 	//Ball Draw--------------------
 	player_ball->GetPosition(position.x, position.y);
@@ -112,7 +113,7 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::OnCollision(PhysBody * body_A, PhysBody * body_B)
 {
-
+	score += 100;
 }
 
 
@@ -145,7 +146,7 @@ void ModulePlayer::setPusher() {
 
 void ModulePlayer::setRightFlipper() {
 
-	R_Flipper = App->physics->CreateRectangle(211, 519, 50, 10,b2_dynamicBody,1.2f);
+	R_Flipper = App->physics->CreateRectangle(211, 519, 50, 10,b2_dynamicBody,1.1f);
 	R_Flipper_pivot = App->physics->CreateCircle(210, 515, 6, b2_staticBody);
 
 	b2RevoluteJointDef revoluteJointDef;
@@ -170,9 +171,10 @@ void ModulePlayer::setRightFlipper() {
 
 	R_Flipper_joint = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revoluteJointDef);
 }
+
 void ModulePlayer::setLeftFlipper() {
 
-	L_Flipper = App->physics->CreateRectangle(142, 483, 50, 10, b2_dynamicBody,1.2f);//210 741
+	L_Flipper = App->physics->CreateRectangle(142, 483, 50, 10, b2_dynamicBody,1.1f);//210 741
 	L_Flipper_pivot = App->physics->CreateCircle(108, 513, 7, b2_staticBody);
 
 	b2RevoluteJointDef revoluteJointDef;

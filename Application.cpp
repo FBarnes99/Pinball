@@ -8,6 +8,7 @@
 #include "ModulePlayer.h"
 #include "ModulePhysics.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleFonts.h"
 
 #include "Application.h"
 
@@ -20,6 +21,7 @@ Application::Application()
 	audio = new ModuleAudio(this, true);
 	player = new ModulePlayer(this);
 	scene_intro = new ModuleSceneIntro(this);
+	fonts = new ModuleFonts(this);
 	physics = new ModulePhysics(this);
 
 	// The order of calls is very important!
@@ -32,6 +34,7 @@ Application::Application()
 	AddModule(renderer);
 	AddModule(textures);
 	AddModule(input);
+	AddModule(fonts);
 	AddModule(audio);
 	
 	// Scenes
