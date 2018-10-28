@@ -37,7 +37,7 @@ bool ModuleSceneIntro::Start()
 	R_Dugtrio = App->textures->Load("pinball/Right_dugtrio.png");
 	voltorb = App->textures->Load("pinball/Voltorb.png");
 	score = App->fonts->Load("pinball/score_f.png", "0123456789", 1);
-	hit_fx = App->audio->LoadFx("pinball/roblox.wav");
+	hit_fx = App->audio->LoadFx("pinball/Bell.wav");
 
 	App->audio->PlayMusic("pinball/145 Victory is Right Before Your Eyes!.ogg", 2);
 
@@ -278,8 +278,12 @@ bool ModuleSceneIntro::Start()
 	};
 	App->physics->CreateChain(0, 0, map11, 8, 0);
 	//diglet
-	App->physics->CreateBouncer(60, 365, 15,1.4f);
-	App->physics->CreateBouncer(268, 365, 15, 1.4f);
+	
+	Digg1.body = App->physics->CreateBouncer(60, 365, 15,1.4f);
+	Digg1.hitted = false;
+
+	Digg2.body = App->physics->CreateBouncer(268, 365, 15, 1.4f);
+	Digg2.hitted = false;
 	//voltorb
 	
 	
@@ -298,15 +302,20 @@ bool ModuleSceneIntro::Start()
 	return ret;
 }
 
-// Load assets
+// Unload assets
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
 	App->textures->Unload(map_tex);
+<<<<<<< HEAD
 	App->textures->Unload(voltorb);
 	App->textures->Unload(bellsprout);
 	App->textures->Unload(L_Dugtrio);
 	App->textures->Unload(R_Dugtrio);
+=======
+	
+	App->fonts->Unload(score);
+>>>>>>> aaa6cbfb2aa45da579cc37e367607651120713fe
 	return true;
 }
 
@@ -330,6 +339,13 @@ update_status ModuleSceneIntro::Update()
 
 	sprintf_s(player_score, 10, "%d", App->player->score);
 	App->fonts->BlitText(120, 353, score, player_score, 0.7f);
+	
+	sprintf_s(max_score, 10, "%d", App->player->maxscore);
+	App->fonts->BlitText(259, 10, score, max_score, 0.7f);
+
+	sprintf_s(player_score, 10, "%d", App->player->score);
+	App->fonts->BlitText(120, 353, score, player_score, 0.7f);
+	
 
 	// Prepare for raycast ------------------------------------------------------
 	
@@ -373,7 +389,6 @@ update_status ModuleSceneIntro::Update()
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	//App->audio->PlayFx(hit_fx);
 
 }
 

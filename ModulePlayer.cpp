@@ -7,7 +7,7 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
-
+#include "ModuleFonts.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -47,7 +47,7 @@ bool ModulePlayer::CleanUp()
 	App->textures->Unload(ball_tex);
 	App->textures->Unload(left_flipper);
 	App->textures->Unload(right_flipper);
-	App->textures->Unload(pusher_ball);
+	
 
 
 
@@ -61,37 +61,37 @@ update_status ModulePlayer::Update()
 {
 
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
 	{
 		R_Flipper_joint->EnableMotor(true);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
 	{
 		R_Flipper_joint->EnableMotor(false);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		L_Flipper_joint->EnableMotor(true);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
 		L_Flipper_joint->EnableMotor(false);
 	}
 
 	
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
 	{
 		
 		pusherjoint->EnableMotor(true);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
 		
 		pusherjoint->EnableMotor(false);
 	}
 
 	
-	//Flippers Draw------
+	
 
 	R_Flipper->GetPosition(position.x, position.y);
 	App->renderer->Blit(right_flipper, position.x, position.y, NULL, 1.0f, R_Flipper->GetRotation());
@@ -105,18 +105,28 @@ update_status ModulePlayer::Update()
 	
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
-		//delete(player_ball);
 		
+		if (score > maxscore) {
+			maxscore = score;
+		}
+
 		App->physics->world->DestroyBody(player_ball->body);
 		setBall(PLAYER_POS_X, PLAYER_POS_Y);
 		score = 0;
 
+		
+
 	}
 
-	if (position.y > SCREEN_HEIGHT  ) {
+	if (position.y > SCREEN_HEIGHT + 30 ) {
 		
 		App->physics->world->DestroyBody(player_ball->body);
+		
 		setBall(PLAYER_POS_X, PLAYER_POS_Y);
+		if (score > maxscore) {
+			maxscore = score;
+		}
+		
 		score = 0;
 	}
 	return UPDATE_CONTINUE;
@@ -124,29 +134,73 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::OnCollision(PhysBody * body_A, PhysBody * body_B)
 {
+	//maxscore = score;
+
 	if (body_B == Volt1 || body_B == Volt2 || body_B == Volt3 || body_B == Dig1 || body_B == Dig2) {
 		App->audio->PlayFx(App->scene_intro->hit_fx);
 	}
 	
-	score += 100;
+	if (body_B == Volt1) {
+		App->scene_intro->Volt1.hitted = true;
+		score += 100;
+	}
+	
+	if (body_B == Volt2) {
+		App->scene_intro->Volt2.hitted = true;
+		score += 100;
+	}
+	
+	if (body_B == Volt3) {
+		App->scene_intro->Volt3.hitted = true;
+		score += 100;
+	}
+
+	if (App->scene_intro->Volt1.hitted == true && App->scene_intro->Volt2.hitted == true && App->scene_intro->Volt3.hitted == true) {
+
+		score += 5000;
+		App->scene_intro->Volt1.hitted = false;
+		App->scene_intro->Volt2.hitted = false;
+		App->scene_intro->Volt3.hitted = false;
+	}
+	
+	if (body_B == Dig1) {
+		App->scene_intro->Digg1.hitted = true;
+		score += 100;
+	}
+
+	if (body_B == Dig2) {
+		App->scene_intro->Digg2.hitted = true;
+		score += 100;
+	}
+
+	if (App->scene_intro->Digg1.hitted == true && App->scene_intro->Digg2.hitted == true) {
+
+		score = score * 2;
+		App->scene_intro->Digg1.hitted = false;
+		App->scene_intro->Digg2.hitted = false;
+		
+	}
+
+
+	//score += 100;
 }
 
 void ModulePlayer::Createsensors() {
 	
 	Volt1 = App->physics->CreateRectangleSensor(132, 172, 33 ,35);
-	Volt1->listener = this;
+	//Volt1->listener = this;
 
 	Volt2 = App->physics->CreateRectangleSensor(182, 151, 33, 35);
-	Volt2->listener = this;
+	//Volt2->listener = this;
 
 	Volt3 = App->physics->CreateRectangleSensor(170, 209, 33, 35);
-	Volt3->listener = this;
+	//Volt3->listener = this;
 
 	Dig1 = App->physics->CreateRectangleSensor(57, 365, 33, 35);
-	Dig1->listener = this;
+	//Dig1->listener = this;
 
 	Dig2 = App->physics->CreateRectangleSensor(266, 365, 33, 35);
-	Dig2->listener = this;
+	//Dig2->listener = this;
 	
 }
 

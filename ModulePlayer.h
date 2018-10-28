@@ -25,6 +25,7 @@ public:
 
 	iPoint position;
 	uint score = 0;
+	uint maxscore = 0;
 	uint lives;
 
 
