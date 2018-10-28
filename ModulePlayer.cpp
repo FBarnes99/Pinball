@@ -11,7 +11,7 @@
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	ball_tex = left_flipper = right_flipper = pusher_ball = NULL;
+	ball_tex = left_flipper = right_flipper = NULL;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -21,20 +21,19 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading ball");
-	lives = 3;
-
+	
 	ball_tex = App->textures->Load("pinball/ball.png");
 	left_flipper = App->textures->Load("pinball/Left_flipper.png");
 	right_flipper = App->textures->Load("pinball/Right_flipper.png");
-	pusher_ball = App->textures->Load("Assets/textures/pusher_ball.png");
 	
-	//if (!background_created) {
-		setBall(PLAYER_POS_X, PLAYER_POS_Y);
-		setPusher();
-		setLeftFlipper();
-		setRightFlipper();
-		background_created = true;
-	//}
+	
+	
+	setBall(PLAYER_POS_X, PLAYER_POS_Y);
+	setPusher();
+	setLeftFlipper();
+	setRightFlipper();
+	background_created = true;
+	
 
 		
 
@@ -91,35 +90,36 @@ update_status ModulePlayer::Update()
 		pusherjoint->EnableMotor(false);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-	{
-		setBall(PLAYER_POS_X, PLAYER_POS_Y);
-	}
+	
 	//Flippers Draw------
 
 	R_Flipper->GetPosition(position.x, position.y);
-<<<<<<< HEAD
+
 	App->renderer->Blit(right_flipper, position.x, position.y, NULL, 1.0f, R_Flipper->GetRotation());
 	
 	L_Flipper->GetPosition(position.x, position.y);
 	App->renderer->Blit(left_flipper, position.x, position.y, NULL, 1.0f, L_Flipper->GetRotation());
-=======
-	App->renderer->Blit(right_flipper, position.x, position.y, NULL, 0, 0, R_Flipper->GetRotation());
-
-	L_Flipper->GetPosition(position.x, position.y);
-	App->renderer->Blit(left_flipper, position.x, position.y, NULL, 0, 0, L_Flipper->GetRotation());
->>>>>>> 4788ce98ec26bcaa5a6c06dba4402eae91574cf3
 
 	//Ball Draw--------------------
 	player_ball->GetPosition(position.x, position.y);
 	App->renderer->Blit(ball_tex, position.x, position.y, NULL, 1.0f, player_ball->GetRotation());
+	
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		//delete(player_ball);
+		
+		App->physics->world->DestroyBody(player_ball->body);
+		setBall(PLAYER_POS_X, PLAYER_POS_Y);
+		score = 0;
 
+	}
 
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::OnCollision(PhysBody * body_A, PhysBody * body_B)
 {
+	App->audio->PlayFx(App->scene_intro->hit_fx);
 	score += 100;
 }
 

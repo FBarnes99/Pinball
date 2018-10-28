@@ -42,6 +42,6 @@ public:
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* rick;
-	uint bonus_fx;
+	uint hit_fx;
 	int score = -1;
 };
