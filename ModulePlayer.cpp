@@ -98,14 +98,21 @@ update_status ModulePlayer::Update()
 	//Flippers Draw------
 
 	R_Flipper->GetPosition(position.x, position.y);
+<<<<<<< HEAD
+	App->renderer->Blit(right_flipper, position.x, position.y, NULL, 1.0f, R_Flipper->GetRotation());
+	
+	L_Flipper->GetPosition(position.x, position.y);
+	App->renderer->Blit(left_flipper, position.x, position.y, NULL, 1.0f, L_Flipper->GetRotation());
+=======
 	App->renderer->Blit(right_flipper, position.x, position.y, NULL, 0, 0, R_Flipper->GetRotation());
 
 	L_Flipper->GetPosition(position.x, position.y);
 	App->renderer->Blit(left_flipper, position.x, position.y, NULL, 0, 0, L_Flipper->GetRotation());
+>>>>>>> 4788ce98ec26bcaa5a6c06dba4402eae91574cf3
 
 	//Ball Draw--------------------
 	player_ball->GetPosition(position.x, position.y);
-	App->renderer->Blit(ball_tex, position.x, position.y, NULL, 1.0f, 1.0f, player_ball->GetRotation());
+	App->renderer->Blit(ball_tex, position.x, position.y, NULL, 1.0f, player_ball->GetRotation());
 
 
 	return UPDATE_CONTINUE;
