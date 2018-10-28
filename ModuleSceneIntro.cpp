@@ -29,7 +29,7 @@ bool ModuleSceneIntro::Start()
 
 	map_tex = App->textures->Load("pinball/background.png");
 	score = App->fonts->Load("pinball/score_f.png", "0123456789", 1);
-	hit_fx = App->audio->LoadFx("pinball/bounce.wav");
+	hit_fx = App->audio->LoadFx("pinball/roblox.wav");
 
 	App->audio->PlayMusic("pinball/145 Victory is Right Before Your Eyes!.ogg", 2);
 

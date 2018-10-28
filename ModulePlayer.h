@@ -34,7 +34,7 @@ private:
 	void setLeftFlipper();
 	void setPusher();
 	void setBall(uint x, uint y);
-
+	void Createsensors();
 
 public:
 
@@ -52,6 +52,12 @@ private:
 	PhysBody* L_Flipper_pivot;
 	PhysBody* R_Flipper;
 	PhysBody* R_Flipper_pivot;
+	PhysBody* Volt1;
+	PhysBody* Volt2;
+	PhysBody* Volt3;
+	PhysBody* Dig1;
+	PhysBody* Dig2;
+
 
 	b2PrismaticJoint* pusherjoint;
 	b2RevoluteJoint* R_Flipper_joint;
