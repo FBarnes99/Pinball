@@ -29,12 +29,8 @@ bool ModuleSceneIntro::Start()
 
 	map_tex = App->textures->Load("pinball/background.png");
 	score = App->fonts->Load("pinball/score_f.png", "0123456789", 1);
-	hit_fx = App->audio->LoadFx("pinball/roblox.wav");
+	hit_fx = App->audio->LoadFx("pinball/bounce.wav");
 
-	/*circle = App->textures->Load("pinball/wheel.png"); 
-	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
-	*/
 	App->audio->PlayMusic("pinball/145 Victory is Right Before Your Eyes!.ogg", 2);
 
 	if (!background_created) 
@@ -334,7 +330,8 @@ update_status ModuleSceneIntro::Update()
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	//App->audio->PlayFx(hit_fx);
+	App->audio->PlayFx(hit_fx);
+	//App->audio->PlayFx(App->scene_intro->hit_fx);
 }
 
 bool ModuleSceneIntro::OnCollisionBouncer(PhysBody* bodyA, Bouncerst bodyB)

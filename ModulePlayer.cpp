@@ -114,12 +114,18 @@ update_status ModulePlayer::Update()
 
 	}
 
+	if (position.y > SCREEN_HEIGHT  ) {
+		
+		App->physics->world->DestroyBody(player_ball->body);
+		setBall(PLAYER_POS_X, PLAYER_POS_Y);
+		score = 0;
+	}
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::OnCollision(PhysBody * body_A, PhysBody * body_B)
 {
-	App->audio->PlayFx(App->scene_intro->hit_fx);
+	//App->audio->PlayFx(App->scene_intro->hit_fx);
 	score += 100;
 }
 
@@ -210,5 +216,5 @@ void ModulePlayer::setLeftFlipper() {
 void ModulePlayer::setBall(uint x, uint y)
 {
 	player_ball = App->physics->CreateCircle(x, y, 10, b2_dynamicBody);
-	player_ball->listener = this; //calls OnCollision function
+	player_ball->listener = this; 
 }
